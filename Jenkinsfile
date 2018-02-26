@@ -10,7 +10,7 @@ pipeline {
                     sh 'echo org.gradle.java.home=/usr/lib/jvm/jre-1.8.0-openjdk >> gradle.properties'
                     sh 'yes | /opt/android-sdk/tools/bin/sdkmanager --licenses'
                     sh 'cp -R /opt/android-sdk/licenses licenses/'
-                    sh './gradlew build clean --stacktrace'
+                    sh './gradlew build'
                 }
             }
         }
