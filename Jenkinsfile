@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Building...'
                 dir ('android/'){
-                    sh 'echo sdk.dir=${env.ANDROID_HOME} >> local.properties'
+                    sh 'echo sdk.dir := $ANDROID_HOME >> local.properties'
                     sh './gradlew build'
                 }
             }
