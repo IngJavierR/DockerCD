@@ -1,8 +1,9 @@
 node {
     stage('Build') {
         echo 'Building...'
-        dir 'android/'
-        sh './gradlew build'
+        dir ('android/'){
+            sh './gradlew build'
+        }
     }
     stage('Docker') {
         echo 'Docker...'
