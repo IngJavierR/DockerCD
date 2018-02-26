@@ -7,6 +7,7 @@ pipeline {
                 dir ('android/'){
                     sh 'echo sdk.dir=$ANDROID_HOME > local.properties'
                     sh 'echo org.gradle.java.home=/usr/lib/jvm/jre-1.8.0-openjdk-1.8.0.161-0.b14.el7_4.x86_64 >> gradle.properties'
+                    sh 'echo $JAVA_HOME'
                     sh 'yes | /opt/android-sdk/tools/bin/sdkmanager --licenses'
                     sh 'cp -R /opt/android-sdk/licenses licenses/'
                     sh './gradlew build clean --stacktrace'
