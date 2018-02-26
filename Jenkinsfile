@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building5'
+                echo 'Building...'
+                dir '${env.WORKSPACE}/android/'
+                sh './gradlew build'
             }
         }
         stage('Test') {
