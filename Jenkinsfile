@@ -4,9 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'yes | /opt/android-sdk/tools/bin/sdkmanager --licenses'
                 dir ('android/'){
                     sh 'echo sdk.dir=$ANDROID_HOME > local.properties'
+                    sh 'yes | /opt/android-sdk/tools/bin/sdkmanager --licenses'
                     sh './gradlew build clean'
                 }
             }
