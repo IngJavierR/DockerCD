@@ -8,7 +8,7 @@ pipeline {
                     sh 'echo sdk.dir=$ANDROID_HOME > local.properties'
                     sh 'yes | /opt/android-sdk/tools/bin/sdkmanager --licenses'
                     sh 'cp -R /opt/android-sdk/licenses licenses/'
-                    sh './gradlew build'
+                    sh './gradlew build clean'
                 }
             }
         }
