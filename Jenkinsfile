@@ -29,7 +29,7 @@ pipeline {
                 timeout(5) {
                     waitUntil {
                         script {
-                            sh 'adb wait-for-device shell "while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;"', returnStatus: true
+                            sh 'adb wait-for-device shell'
                         }
                     }
                 }
