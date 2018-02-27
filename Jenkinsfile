@@ -13,7 +13,7 @@ pipeline {
             }
         }
         stage('Generate Apk') {
-            steps{
+            steps {
                 dir ('android/'){
                     sh './gradlew assembleDebug'
                 }
@@ -28,15 +28,10 @@ pipeline {
             }
         }
         stage('Expresso test') {
-            steps{
+            steps {
                 dir ('android/'){
                     sh './gradlew connectedAndroidTest -i'
                 }
-            }
-        }
-        stage('Manual deploy') {
-            steps{
-                
             }
         }
     }
