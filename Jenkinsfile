@@ -47,6 +47,7 @@ pipeline {
         }
         failure {
             echo 'I failed :('
+            sh 'docker rm -f $(docker ps -aq)'
         }
         changed {
             echo 'Things were different before...'
