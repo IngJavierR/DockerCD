@@ -25,22 +25,22 @@ pipeline {
                 sh 'while ! mysqladmin ping -hdb --silent; do sleep 1; done'
             }
         }
+    }
     post { 
         always { 
             deleteDir()
-            }
+        }
         success {
             echo 'I succeeeded!'
-            }
+        }
         unstable {
             echo 'I am unstable :/'
-            }
+        }
         failure {
             echo 'I failed :('
-            }
+        }
         changed {
             echo 'Things were different before...'
-            }
         }
     }
 }
