@@ -26,9 +26,9 @@ pipeline {
         }
         stage('Expresso test') {
             steps {
+                sleep 60
                 sh '/opt/android-sdk/platform-tools/adb kill-server'
                 sh '/opt/android-sdk/platform-tools/adb start-server'
-                sh '/opt/android-sdk/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;\''
                 dir ('android/'){
                     sh './gradlew connectedAndroidTest -i'
                 }
