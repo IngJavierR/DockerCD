@@ -25,14 +25,14 @@ pipeline {
             }
         }
         stage('Expresso test') {
-            timeout(5) {
-                waitUntil {
-                    script {
-                        sh 'adb wait-for-device shell "while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;"', returnStatus: true
+            steps {
+                timeout(5) {
+                    waitUntil {
+                        script {
+                            sh 'adb wait-for-device shell "while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;"', returnStatus: true
+                        }
                     }
                 }
-            }
-            steps {
                 dir ('android/'){
                     sh './gradlew connectedAndroidTest -i'
                 }
