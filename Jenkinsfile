@@ -22,9 +22,6 @@ pipeline {
         stage('Docker') {
             steps {
                 sh 'docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-7.1.1'
-                dir ('android/'){
-                    sh 'adb wait-for-device shell "while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;"'
-                }
             }
         }
         stage('Expresso test') {
@@ -38,6 +35,7 @@ pipeline {
     post { 
         always { 
             deleteDir()
+            sh 'docker rm -f $(docker ps -aq)'
         }
         success {
             echo 'I succeeeded!'
@@ -47,7 +45,6 @@ pipeline {
         }
         failure {
             echo 'I failed :('
-            sh 'docker rm -f $(docker ps -aq)'
         }
         changed {
             echo 'Things were different before...'
