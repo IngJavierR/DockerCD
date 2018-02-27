@@ -1,5 +1,5 @@
 node {
-  docker.image('python:2.7').withRun('-u root') {
-    sh 'python --version'
+  docker.image('butomo1989/docker-android-x86-7.1.1').withRun('--privileged -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6"') {
+    sh 'pwd'
   }
 }
