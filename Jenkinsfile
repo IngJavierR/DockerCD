@@ -29,7 +29,7 @@ pipeline {
                 timeout(5) {
                     waitUntil {
                         script {
-                            sh 'adb wait-for-device shell'
+                            sh './opt/android-sdk/platform-tools/adb wait-for-device shell'
                         }
                     }
                 }
