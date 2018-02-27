@@ -26,7 +26,6 @@ pipeline {
         }
         stage('Expresso test') {
             steps {
-                sh 'adb devices'
                 dir ('android/'){
                     sh './gradlew connectedAndroidTest -i'
                 }
