@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Publish') {
             steps {
                 sh 'curl "https://dashboard.applivery.com/api/builds" \
                     -X POST \
