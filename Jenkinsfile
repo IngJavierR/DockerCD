@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Expresso test') {
             steps {
-                sh '/opt/android-sdk/platform-tools/adb wait-for-device shell'
+                sh '/opt/android-sdk/platform-tools/adb wait-for-device'
                 dir ('android/'){
                     sh './gradlew connectedAndroidTest -i'
                 }
