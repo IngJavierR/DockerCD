@@ -35,7 +35,7 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void mainActivityTest1() {
+    public void mainActivityTest2() {
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.etUserName),
                         childAtPosition(
@@ -44,69 +44,39 @@ public class MainActivityTest {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText.perform(click());
+        appCompatEditText.perform(replaceText("a"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.etUserName),
+                allOf(withId(R.id.etUserName), withText("a"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.LinearLayout")),
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("p"), closeSoftKeyboard());
+        appCompatEditText2.perform(click());
 
         ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.etUserName), withText("p"),
+                allOf(withId(R.id.etUserName), withText("a"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.LinearLayout")),
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText3.perform(click());
+        appCompatEditText3.perform(replaceText("admin"));
 
         ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.etUserName), withText("p"),
+                allOf(withId(R.id.etUserName), withText("admin"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.LinearLayout")),
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText4.perform(click());
+        appCompatEditText4.perform(closeSoftKeyboard());
 
         ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.etUserName), withText("p"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText5.perform(click());
-
-        ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.etUserName), withText("p"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText6.perform(replaceText("pprue"));
-
-        ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.etUserName), withText("pprue"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText7.perform(closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText8 = onView(
                 allOf(withId(R.id.etPassword),
                         childAtPosition(
                                 childAtPosition(
@@ -114,14 +84,14 @@ public class MainActivityTest {
                                         1),
                                 1),
                         isDisplayed()));
-        appCompatEditText8.perform(replaceText("dos"), closeSoftKeyboard());
+        appCompatEditText5.perform(replaceText("admin"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btnLogin), withText("Login"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
+                                        1),
                                 2),
                         isDisplayed()));
         appCompatButton.perform(click());

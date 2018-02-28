@@ -1,5 +1,6 @@
 package com.example.testingdocker;
 
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         setUpView();
@@ -37,5 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), String.format("Welcome %s", etUserName.getText()), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void forceCrash(View view) {
+        throw new Resources.NotFoundException();
     }
 }
