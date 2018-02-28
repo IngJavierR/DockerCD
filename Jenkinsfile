@@ -31,7 +31,7 @@ pipeline {
                 sh '/opt/android-sdk/platform-tools/adb kill-server'
                 sh '/opt/android-sdk/platform-tools/adb start-server'
                 dir ('android/'){
-                    sh './gradlew connectedAndroidTest -i'
+                    sh './gradlew connectedAndroidTest'
                 }
             }
         }
