@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'echo ${SHORT_JOB_NAME}'
+                sh 'env'
                 dir ('android/'){
                     sh 'echo sdk.dir=$ANDROID_HOME > local.properties'
                     sh 'yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses'
