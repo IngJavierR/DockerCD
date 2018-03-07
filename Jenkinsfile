@@ -27,10 +27,10 @@ pipeline {
             }
         }
         stage('Expresso test') {
+            docker.image('butomo1989/docker-android-x86-7.1.1').withRun { c ->
+                sh 'printenv'
+            }
             steps {
-                docker.image('butomo1989/docker-android-x86-7.1.1').withRun { c ->
-                    sh 'printenv'
-                }
                 sh '$ANDROID_HOME/platform-tools/adb kill-server'
                 sh '$ANDROID_HOME/platform-tools/adb start-server'
                 sh '$ANDROID_HOME/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done\''
