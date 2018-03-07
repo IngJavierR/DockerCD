@@ -30,7 +30,7 @@ pipeline {
         stage('Expresso test') {
             when {
                 not {
-                    branch 'develop'
+                    branch 'master'
                 }
             }
             steps {
