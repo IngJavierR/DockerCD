@@ -19,15 +19,19 @@ pipeline {
                 }
             }
         }
-        stage('Docker'){
+        stage('Unit test'){
             steps {
-                sh './gradlew test'
+                dir ('android/'){
+                    sh './gradlew test'
+                }
             }
         }
         stage('Expresso test') {
-            docker {
-                image 'butomo1989/docker-android-x86-7.1.1'
-                args '--privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container'
+            agent {
+                docker {
+                    image 'butomo1989/docker-android-x86-7.1.1'
+                    args '--privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container'
+                }
             }
             steps {
                 sh '$ANDROID_HOME/platform-tools/adb kill-server'
