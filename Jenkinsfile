@@ -27,10 +27,8 @@ pipeline {
             }
         }
         stage('Expresso test') {
-            docker.image('butomo1989/docker-android-x86-7.1.1').withRun { c ->
-                sh 'printenv'
-            }
             steps {
+                sh 'DOCKERID${JOB_NAME}${BUILD_NUMBER}="$(docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE=\'Samsung Galaxy S6\' --name android-container butomo1989/docker-android-x86-7.1.1)"'
                 sh '$ANDROID_HOME/platform-tools/adb kill-server'
                 sh '$ANDROID_HOME/platform-tools/adb start-server'
                 sh '$ANDROID_HOME/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done\''
@@ -57,7 +55,7 @@ pipeline {
     post { 
         always { 
             deleteDir()
-            sh 'docker rm -f $(docker ps -aq)'
+            sh 'docker rm -f $DOCKERID${JOB_NAME}${BUILD_NUMBER}'
         }
         success {
             echo 'I succeeeded!'
