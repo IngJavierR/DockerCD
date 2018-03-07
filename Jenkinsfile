@@ -19,18 +19,24 @@ pipeline {
                 }
             }
         }
-        stage('Docker') {
+        stage('Unit test'){
             steps {
-                sh 'docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-7.1.1'
+                dir ('android/'){
+                    sh './gradlew test'
+                }
             }
         }
         stage('Expresso test') {
+            docker {
+                image 'butomo1989/docker-android-x86-7.1.1'
+                args '--privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container'
+            }
             steps {
                 sh '$ANDROID_HOME/platform-tools/adb kill-server'
                 sh '$ANDROID_HOME/platform-tools/adb start-server'
                 sh '$ANDROID_HOME/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done\''
                 dir ('android/'){
-                    sh './gradlew connectedAndroidTest -i'
+                    sh './gradlew connectedAndroidTest'
                 }
             }
         }
