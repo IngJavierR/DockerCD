@@ -19,11 +19,9 @@ pipeline {
                 }
             }
         }
-        stage('Unit test'){
+        stage('Docker'){
             steps {
-                dir ('android/'){
-                    sh './gradlew test'
-                }
+                sh './gradlew test'
             }
         }
         stage('Expresso test') {
