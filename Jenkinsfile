@@ -41,6 +41,7 @@ pipeline {
                 }
             }
         }
+        if( env.BRANCH_NAME == "master") {
         stage('Publish') {
             steps {
                 sh 'curl "https://dashboard.applivery.com/api/builds" \
@@ -54,6 +55,7 @@ pipeline {
                     -F tags="tag1" \
                     -F package=@"$WORKSPACE/android/app/build/outputs/apk/debug/app-debug.apk"'
             }
+        }
         }
     }
     post { 
