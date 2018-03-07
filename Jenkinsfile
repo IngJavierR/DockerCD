@@ -41,9 +41,9 @@ pipeline {
                 }
             }
         }
-        if( env.BRANCH_NAME == "master") {
         stage('Publish') {
             steps {
+                if( env.BRANCH_NAME == "master") {
                 sh 'curl "https://dashboard.applivery.com/api/builds" \
                     -X POST \
                     -H "Authorization:42c00e9014a6d943c1e9fe75ed0050de253a3620" \
@@ -54,8 +54,8 @@ pipeline {
                     -F os="android" \
                     -F tags="tag1" \
                     -F package=@"$WORKSPACE/android/app/build/outputs/apk/debug/app-debug.apk"'
+                }
             }
-        }
         }
     }
     post { 
