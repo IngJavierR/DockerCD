@@ -30,7 +30,7 @@ pipeline {
         stage('Expresso test') {
             when {
                 not {
-                    branch 'develop'
+                    branch 'origin/develop'
                 }
             }
             steps {
@@ -46,7 +46,7 @@ pipeline {
         }
         stage('Publish') {
             when {
-                branch 'master'
+                branch 'origin/master'
             }
             steps {
                 sh 'curl "https://dashboard.applivery.com/api/builds" \
