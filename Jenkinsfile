@@ -6,8 +6,8 @@ pipeline {
                 echo 'Building...'
                 dir ('android/'){
                     sh 'echo sdk.dir=$ANDROID_HOME > local.properties'
-                    sh 'yes | /opt/android-sdk/tools/bin/sdkmanager --licenses'
-                    sh 'cp -R /opt/android-sdk/licenses licenses/'
+                    sh 'yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses'
+                    sh 'cp -R $ANDROID_HOME/licenses licenses/'
                     sh './gradlew build clean'
                 }
             }
@@ -26,9 +26,9 @@ pipeline {
         }
         stage('Expresso test') {
             steps {
-                sleep 60
-                sh '/opt/android-sdk/platform-tools/adb kill-server'
-                sh '/opt/android-sdk/platform-tools/adb start-server'
+                sh '$ANDROID_HOME/platform-tools/adb kill-server'
+                sh '$ANDROID_HOME/platform-tools/adb start-server'
+                sh '$ANDROID_HOME/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done\''
                 dir ('android/'){
                     sh './gradlew connectedAndroidTest -i'
                 }
