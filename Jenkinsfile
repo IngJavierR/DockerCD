@@ -28,10 +28,7 @@ pipeline {
         }
         stage('Expresso test') {
             steps {
-                DOCKERID = sh (
-                    script: 'docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE=\'Samsung Galaxy S6\' butomo1989/docker-android-x86-7.1.1',
-                    returnStdout: true
-                ).trim()
+                DOCKERID = sh 'docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE=\'Samsung Galaxy S6\' butomo1989/docker-android-x86-7.1.1 > dockerid'
                 sh '$ANDROID_HOME/platform-tools/adb kill-server'
                 sh '$ANDROID_HOME/platform-tools/adb start-server'
                 sh '$ANDROID_HOME/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done\''
@@ -58,8 +55,7 @@ pipeline {
     post { 
         always { 
             deleteDir()
-            sh 'echo ${DOCKERID}'
-            sh 'docker rm -f ${DOCKERID}'
+            sh 'docker rm -f' + readFile('commandResult').trim()
         }
         success {
             echo 'I succeeeded!'
