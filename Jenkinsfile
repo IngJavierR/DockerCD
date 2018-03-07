@@ -34,7 +34,7 @@ pipeline {
                 branch 'release/*'
             }
             steps {
-                sh 'echo ${JOB_NAME}'
+                sh 'echo ${JOB_BASE_NAME}'
                 sh 'docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE=\'Samsung Galaxy S6\' --name ${IMAGEN_NAME} butomo1989/docker-android-x86-7.1.1'
                 sh '$ANDROID_HOME/platform-tools/adb kill-server'
                 sh '$ANDROID_HOME/platform-tools/adb start-server'
