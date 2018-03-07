@@ -30,7 +30,7 @@ pipeline {
         stage('Expresso test') {
             when {
                 not {
-                    branch 'master'
+                    branch 'develop'
                 }
             }
             steps {
@@ -64,6 +64,11 @@ pipeline {
     post { 
         always { 
             deleteDir()
+            when {
+                not {
+                    branch 'develop'
+                }
+            }
             sh 'docker rm -f ${BUILD_TAG}'
         }
         success {
