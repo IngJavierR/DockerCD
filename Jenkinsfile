@@ -41,6 +41,7 @@ pipeline {
                 dir ('android/'){
                     sh './gradlew connectedAndroidTest'
                 }
+                sh 'docker rm -f ${BUILD_TAG}'
             }
         }
         stage('Publish') {
@@ -64,12 +65,6 @@ pipeline {
     post { 
         always { 
             deleteDir()
-            when {
-                not {
-                    branch 'develop'
-                }
-            }
-            sh 'docker rm -f ${BUILD_TAG}'
         }
         success {
             echo 'I succeeeded!'
