@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        IMAGEN_NAME = 'DockerCD'
+    }
     stages {
         stage('Build') {
             steps {
@@ -28,7 +31,7 @@ pipeline {
         }
         stage('Expresso test') {
             steps {
-                sh 'docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE=\'Samsung Galaxy S6\' --name ${JOB_NAME} butomo1989/docker-android-x86-7.1.1'
+                sh 'docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE=\'Samsung Galaxy S6\' --name ${IMAGEN_NAME} butomo1989/docker-android-x86-7.1.1'
                 sh '$ANDROID_HOME/platform-tools/adb kill-server'
                 sh '$ANDROID_HOME/platform-tools/adb start-server'
                 sh '$ANDROID_HOME/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done\''
@@ -55,7 +58,7 @@ pipeline {
     post { 
         always { 
             deleteDir()
-            sh 'docker rm -f ${JOB_NAME}'
+            sh 'docker rm -f ${IMAGEN_NAME}'
         }
         success {
             echo 'I succeeeded!'
